@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<body>
+
+    <div class="container">
+        <h1>Empleados</h1>
+        <div>
+             <a href="{% url 'home' %}" class="btn btn-default" ><span class="glyphicon glyphicon-home"></span> Inicio</a>
+             <a href="{% url 'empleados:empleados_new' %}" class="btn btn-success"><span class="glyphicon glyphicon-file"></span> Nuevo registro de empleados</a><br><br>
+        </div>
+        <table class="table table-hover table-bordered" >
+            <thead>
+                <tr>
+                    <td class="info"><strong>ID</strong> </td>
+                    <td class="info"> <strong class="text-center">Nombre</strong> </td>
+                    <td class="info"> <strong>Apellido Paterno</strong> </td>
+                    <td class="info"> <strong>Apellido Materno</strong> </td>
+                    <td class="info"> <strong>Fecha de Nacimiento</strong> </td>
+                    <td class="info"> <strong>CURP</strong> </td>
+                    <td class="info"> <strong>RFC</strong> </td>
+                    <td class="info"><strong> Dirección</strong> </td>
+                    <td class="info"><strong>Actualizar</strong> </td>
+                    <td class="info"> <strong>Eliminar</strong> </a></td>
+                </tr>
+            </thead>
+      <tbody>
+            {% for empleado in object_list %}
+            <tr>
+                <td> {{ empleado.id }}</td>
+                <td> {{ empleado.nombre }} </td>
+                <td> {{ empleado.apellido_paterno }} </td>
+                <td> {{ empleado.apellido_materno }} </td>
+                <td> {{ empleado.fecha_nacimiento|date:"Y-m-d" }} </td>
+                <td> {{ empleado.curp }} </td>
+                <td> {{ empleado.rfc }} </td>
+
+                <td>
+                    {{ empleado.direccion.get_full_information|truncatechars:30 }}
+                </td>
+
+                <td> <a href="{% url 'empleados:empleados_edit' empleado.id %}" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span></a></td>
+                <td> <a href="{% url 'empleados:empleados_delete' empleado.id %}" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+
+        </table>
+
+    <div class="footer">
+
+    </div>
+    </div>
+
+</body>
+{% endblock %}
